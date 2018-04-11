@@ -1,9 +1,9 @@
 import java.io.*;
 import java.net.*;
 
-class LocalDNS{
+public class LocalDNS{
   public static void main(String argv[]) throws Exception{
-    DatagramSocket serverSocket = new DatagramSocket(40280);
+    DatagramSocket serverSocket = new DatagramSocket(40281);
     byte[] receiveData = new byte[1024];
     byte[] sendData = new byte[1024];
 
