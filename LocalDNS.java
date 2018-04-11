@@ -56,12 +56,17 @@ public class LocalDNS{
 
   **/
   public static String resolve(String url) throws Exception{
-    String resolveURL = url.trim();
-		String ns = "ns." + resolveURL.substring(resolveURL.indexOf(".")+1);
-		String nsIP = getNSip(ns);
-		int nsPort = HIS_CINEMA_NS_PORT;
-		String result = requestToNameServer(resolveURL, ns, nsIP, nsPort);
-    return result;
+    String hisCinemaNSurl 	= url.trim();
+		String hisCinemaNS 			= "ns." + hisCinemaNSurl.substring(hisCinemaNSurl.indexOf(".")+1);
+		String hisCinemaNSip 		= getNSip(hisCinemaNS);
+		int 	 hisCinemaNSport  = HIS_CINEMA_NS_PORT;
+		String hisCinemaNSres 	= requestToNameServer(hisCinemaNSurl, hisCinemaNS, hisCinemaNSip, hisCinemaNSport);
+		String herCDNNSurl 			= hisCinemaNSres;
+		String herCDNNS 				= "ns" + hisCinemaNSres;
+		String herCDNNSip 		  = getNSip(herCDNNS);
+		int 	 herCDNNSport 		= HER_CDN_NS_PORT;
+		String herCDNNSres 			= requestToNameServer(herCDNNSurl, herCDNNS, herCDNNSip, herCDNNSport);
+    return herCDNNSres;
   }
 
   public static String requestToNameServer(String url, String ns, String nsIP, int nsPort) throws Exception{
