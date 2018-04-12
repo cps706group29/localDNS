@@ -15,7 +15,7 @@ The following variables should be set:
 - Port for name-server/machine running **ns.hisCinema.com**
 - Port for name-server/machine running **Local DNS**
 
-Set the two lines accordingly:
+Set these lines accordingly:
 ```
 public static final String  HIS_CINEMA_NS_IP    = "xxx.xxx.xxx.xxx";
 public static final int     HIS_CINEMA_NS_PORT  = xxxxx;
