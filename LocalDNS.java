@@ -3,9 +3,9 @@ import java.net.*;
 import java.util.*;
 
 public class LocalDNS{
-  public static final String  HIS_CINEMA_NS_IP    = "127.0.0.1";
+  public static final String  HIS_CINEMA_NS_IP    = "127.0.0.2";
   public static final int     HIS_CINEMA_NS_PORT  = 40282;
-  public static final String  HER_CDN_NS_IP       = "127.0.0.1";
+  public static final String  HER_CDN_NS_IP       = "127.0.0.3";
   public static final int     HER_CDN_NS_PORT     = 40283;
   public static final int     LOCAL_DNS_LISTENING_PORT = 40281;
 
@@ -62,7 +62,7 @@ public class LocalDNS{
 		int 	 hisCinemaNSport  = HIS_CINEMA_NS_PORT;
 		String hisCinemaNSres 	= requestToNameServer(hisCinemaNSurl, hisCinemaNS, hisCinemaNSip, hisCinemaNSport);
 		String herCDNNSurl 			= hisCinemaNSres;
-		String herCDNNS 				= "ns" + hisCinemaNSres;
+		String herCDNNS 				= "ns." + hisCinemaNSres;
 		String herCDNNSip 		  = getNSip(herCDNNS);
 		int 	 herCDNNSport 		= HER_CDN_NS_PORT;
 		String herCDNNSres 			= requestToNameServer(herCDNNSurl, herCDNNS, herCDNNSip, herCDNNSport);
@@ -75,20 +75,21 @@ public class LocalDNS{
     sendData = url.getBytes();
     InetAddress NSIPAddress = InetAddress.getByName(nsIP);
     DatagramPacket request = new DatagramPacket(sendData, sendData.length, NSIPAddress, nsPort);
-    System.out.println("Sending request to " + ns + "@"+ nsIP + ":" + nsPort + " : " + url);
+    System.out.println("Sending request to " + ns + " @ "+ nsIP + ":" + nsPort + " = " + url);
     serverSocket.send(request);
 		DatagramPacket response = new DatagramPacket(receiveData, receiveData.length);
     serverSocket.receive(response);
 		String nsResponse = new String(response.getData());
-		System.out.println("Response received from " + ns + "@" + nsIP + ":" + nsPort + " : " + nsResponse);
+		System.out.println("Response received from " + ns + " @ " + nsIP + ":" + nsPort + " = " + nsResponse);
     return nsResponse;
   }
 
-	public static String getNSip(String NSUrl){
-		String current = NSUrl;
+	public static String getNSip(String NSurl){
+    String current = NSurl.trim();
 		for(int i = 0; i < records.size(); i++){
 			ResourceRecord record = records.get(i);
 			if(current.equals(record.name)){
+
 				current = record.value;
 				if(record.type.equals("A")){
 					return current;
