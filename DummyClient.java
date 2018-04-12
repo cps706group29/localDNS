@@ -2,8 +2,8 @@ import java.io.*;
 import java.net.*;
 
 public class DummyClient{
-  public static final String LOCAL_DNS_IP = "127.0.0.1";
-  public static final int LOCAL_DNS_PORT = 40281;
+  public static final String LOCAL_DNS_IP = "192.168.1.104";
+  public static final int LOCAL_DNS_PORT = 40280;
 
   public static void main(String argv[]) throws Exception{
 
